@@ -1,0 +1,15 @@
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
+*.log
+# Agent context: local, never committed (as in Wave UI and Wave Strand).
+CLAUDE.md
+.claude/
+
+# What macOS and Windows leave behind in folders.
+.DS_Store
+Thumbs.db
+# Vitest's browser runs keep screenshots of failures here.
+.vitest/
+__screenshots__/

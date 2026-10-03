@@ -1,0 +1,116 @@
+{
+  "name": "@waveso/cues",
+  "version": "0.1.0",
+  "description": "How the interface answers you: sounds synthesized as they play, from measured recipes, through a mixer with a limiter, with no files to load.",
+  "type": "module",
+  "sideEffects": false,
+  "license": "MIT",
+  "packageManager": "pnpm@11.21.0",
+  "keywords": [
+    "cues",
+    "audio-cues",
+    "earcons",
+    "sound",
+    "ui-sounds",
+    "sound-design",
+    "web-audio",
+    "synthesis",
+    "audio",
+    "react",
+    "interaction-design"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wavedotso/wave-cues.git"
+  },
+  "homepage": "https://github.com/wavedotso/wave-cues#readme",
+  "bugs": "https://github.com/wavedotso/wave-cues/issues",
+  "engines": {
+    "node": ">=20"
+  },
+  "exports": {
+    "./package.json": "./package.json",
+    "./engine": {
+      "types": "./dist/engine.d.ts",
+      "default": "./dist/engine.js"
+    },
+    "./recipe": {
+      "types": "./dist/recipe.d.ts",
+      "default": "./dist/recipe.js"
+    },
+    "./render": {
+      "types": "./dist/render.d.ts",
+      "default": "./dist/render.js"
+    },
+    "./react": {
+      "types": "./dist/react.d.ts",
+      "default": "./dist/react.js"
+    },
+    "./transform": {
+      "types": "./dist/transform.d.ts",
+      "default": "./dist/transform.js"
+    },
+    "./vocabulary": {
+      "types": "./dist/vocabulary.d.ts",
+      "default": "./dist/vocabulary.js"
+    },
+    "./dom": {
+      "types": "./dist/dom.d.ts",
+      "default": "./dist/dom.js"
+    },
+    "./sets/*": {
+      "types": "./dist/sets/*.d.ts",
+      "default": "./dist/sets/*.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsdown",
+    "build:watch": "tsdown --watch",
+    "dev": "vite --config studio/vite.config.ts",
+    "typecheck": "tsc --noEmit",
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix",
+    "format": "oxfmt --write '**/*.ts' '**/*.tsx'",
+    "format:check": "oxfmt --check '**/*.ts' '**/*.tsx'",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "browsers": "playwright install chromium firefox webkit",
+    "check:package": "publint && attw --pack . --profile esm-only",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "pnpm build",
+    "changeset": "changeset",
+    "version": "changeset version",
+    "release": "pnpm build && changeset publish"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.5",
+    "@changesets/cli": "^3.0.3",
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.1",
+    "@vitest/browser-playwright": "^5.0.2",
+    "oxfmt": "0.71.0",
+    "oxlint": "^1.86.0",
+    "playwright": "^1.63.0",
+    "publint": "^0.3.24",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "tailwindcss": "^4.3.3",
+    "tsdown": "0.23.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.1",
+    "vitest": "^5.0.2"
+  }
+}

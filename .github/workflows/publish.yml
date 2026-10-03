@@ -1,0 +1,92 @@
+name: Publish
+
+# On every push to main: with changesets waiting, this opens or updates the
+# "version packages" pull request; once that is merged, it publishes to npm.
+# With neither, it finds the current version already on npm and does nothing.
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: publish-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: Publish to npm
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write # create release commits & tags
+      pull-requests: write # open "Version Packages" PR
+      id-token: write # OIDC for npm trusted publishing
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          # Node 24 is a current, safe baseline. Publishing is done by pnpm's
+          # own native publisher below (not the npm CLI), so the old
+          # "npm >= 11.5.1" constraint that forced 24 no longer strictly
+          # applies, but keeping 24 is harmless and future-proof.
+          node-version: 24
+          cache: pnpm
+          # Still required with OIDC: it writes the .npmrc that tells the
+          # publisher which registry to authenticate against.
+          registry-url: https://registry.npmjs.org
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install browsers (the sounds are recorded in all three)
+        run: pnpm exec playwright install --with-deps chromium firefox webkit
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Format check
+        run: pnpm format:check
+
+      - name: Type-check
+        run: pnpm typecheck
+
+      - name: Test
+        run: pnpm test
+
+      - name: Build library
+        run: pnpm build
+
+      - name: Create release PR or publish
+        uses: changesets/action@v1
+        with:
+          publish: pnpm release
+          title: "chore: version packages"
+          commit: "chore: version packages"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # No NODE_AUTH_TOKEN, deliberately. changesets/action checks
+          # NPM_TOKEN first and only falls through to OIDC trusted publishing
+          # when it is absent, so leaving it set would keep this job on the
+          # token path and silently switch trusted publishing back off.
+          #
+          # ⚠️ This only works once a trusted publisher is configured for
+          # @waveso/cues on npmjs.com (org `wavedotso`, repo `wave-cues`, workflow
+          # `publish.yml`). Configure it and ship one release BEFORE relying on
+          # this, or the publish fails auth.
+          #
+          # Not optional in the long run: npm is removing direct publishing from
+          # 2FA-bypass granular tokens around January 2027, and OIDC is the
+          # replacement npm points at.
+          #
+          # PNPM_CONFIG_PROVENANCE, not NPM_CONFIG_PROVENANCE: changesets routes
+          # to pnpm's native publisher now that a pnpm lockfile exists, and
+          # pnpm 11 renamed the env prefix. pnpm 11's native publish handles
+          # OIDC trusted publishing: the early 11.0.8 breakage was fixed in
+          # ~11.1.3 (pnpm/pnpm#11526); this repo pins pnpm 11.21.
+          PNPM_CONFIG_PROVENANCE: true

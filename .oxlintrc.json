@@ -1,0 +1,23 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["react", "typescript", "jsx-a11y", "unicorn", "oxc", "vitest"],
+  "env": { "browser": true, "es2024": true },
+  "categories": {
+    "correctness": "error",
+    "suspicious": "warn",
+    "perf": "warn"
+  },
+  "options": {
+    "denyWarnings": true,
+    "reportUnusedDisableDirectives": "error"
+  },
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "jsx-a11y/prefer-tag-over-role": "off",
+    "unicorn/no-new-array": "warn",
+    "unicorn/consistent-function-scoping": "warn",
+    // Vitest takes a failure message as expect's second argument.
+    "vitest/valid-expect": ["error", { "maxArgs": 2 }]
+  },
+  "ignorePatterns": ["**/*.d.ts", "dist"]
+}
