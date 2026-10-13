@@ -1,6 +1,6 @@
 {
   "name": "@waveso/cues",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "How the interface answers you: sounds synthesized as they play, from measured recipes, through a mixer with a limiter, with no files to load.",
   "type": "module",
   "sideEffects": false,
