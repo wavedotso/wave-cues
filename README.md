@@ -5,7 +5,7 @@ and light come next.
 
 A sound here is a recipe: a few numbers that Web Audio turns into sound at
 the moment it is needed. No file is downloaded, so no sound arrives late; the
-engine and a set of thirty sounds weigh under 6 KB gzipped; and every sound
+engine and a set of thirty-one sounds weigh under 6 KB gzipped; and every sound
 can be tuned, by ear, in the studio. Recipes are measured, not guessed: a
 sound modelled on a recording says what was measured, so the next person can
 check.
@@ -74,19 +74,19 @@ there is no index.
 
 ## The vocabulary
 
-The sets shipped here share thirty names, in eight families. What each one
+The sets shipped here share thirty-one names, in eight families. What each one
 means is in `@waveso/cues/vocabulary`, for your docs and the studio.
 
-| Family   | Sounds                                    |
-| -------- | ----------------------------------------- |
-| object   | `tick` `lift` `drop` `knock` `snap`       |
-| pointer  | `hover` `pop`                             |
-| press    | `press` `release` `tap` `type`            |
-| toggle   | `on` `off` `switch`                       |
-| feedback | `success` `error` `warning` `denied`      |
-| notify   | `notify` `ping` `message` `land`          |
-| motion   | `open` `close` `slide` `swoosh`           |
-| state    | `loading` `ready` `complete` `sparkle`    |
+| Family   | Sounds                                        |
+| -------- | --------------------------------------------- |
+| object   | `tick` `lift` `drop` `knock` `snap`           |
+| pointer  | `hover` `pop`                                 |
+| press    | `press` `release` `tap` `type`                |
+| toggle   | `on` `off` `switch`                           |
+| feedback | `success` `error` `warning` `denied`          |
+| notify   | `notify` `ping` `message` `land`              |
+| motion   | `open` `close` `slide` `swoosh`               |
+| state    | `step` `loading` `ready` `complete` `sparkle` |
 
 ## Sets
 

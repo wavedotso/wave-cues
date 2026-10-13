@@ -745,6 +745,94 @@ export const soft = defineSounds({
   },
   /* STATE */
 
+  /*
+   * STEP: one unit of something under way: progress moving on, a number
+   * counting, a thing carried past a cell. Measured from one blip of a
+   * recorded train of them, a machine at work at about fifteen a second:
+   * decoded with afconvert, its level every millisecond and its partials
+   * with no window laid over its start.
+   *
+   *   the burst    up over 4 ms, full to 11 ms, 15 dB down by 14 ms
+   *   it rings at  a series on 2.07 kHz: 12.4 kHz the strongest, 8.3 kHz
+   *                1 dB under it, 10.4 kHz 6 dB, 14.5 kHz and 4.15 kHz 13 dB
+   *   the tail     13 dB under the burst from 19 to 27 ms, four fifths of
+   *                it one tone at 4.2 kHz, out of hearing by 36 ms
+   *   spectrum     half its energy above 11 kHz, 43% from 6 to 11 kHz, 7%
+   *                from 1 to 6 kHz, nothing under 1 kHz
+   *   played       at one pitch every time, never under 66 ms apart
+   *
+   * So: a sine where each partial rings, all on the burst's envelope, and
+   * one more for the tail. It has no noise in it at all: that is what makes
+   * it a machine's and not a thing's. An attack here is a straight line in
+   * decibels, so to rise as gently as the recording the burst starts 7 ms
+   * before it is heard. Rendered and measured the same way, this recipe is
+   * 2 dB from the recording on average, millisecond by millisecond, with
+   * 45% of its energy above 11 kHz, 44% from 6 to 11 kHz and 11% from 1 to
+   * 6 kHz: close, not a copy. Made to repeat.
+   */
+  step: {
+    gain: 0.05,
+    vary: 0,
+    every: 45,
+    voices: 4,
+    layers: [
+      {
+        type: "tone",
+        wave: "sine",
+        from: 12420,
+        gain: 1,
+        attack: 0.011,
+        hold: 0.0085,
+        decay: 0.0085,
+      },
+      {
+        type: "tone",
+        wave: "sine",
+        from: 8290,
+        gain: 0.9,
+        attack: 0.011,
+        hold: 0.0085,
+        decay: 0.0085,
+      },
+      {
+        type: "tone",
+        wave: "sine",
+        from: 10360,
+        gain: 0.5,
+        attack: 0.011,
+        hold: 0.0085,
+        decay: 0.0085,
+      },
+      {
+        type: "tone",
+        wave: "sine",
+        from: 14490,
+        gain: 0.3,
+        attack: 0.011,
+        hold: 0.0085,
+        decay: 0.0085,
+      },
+      {
+        type: "tone",
+        wave: "sine",
+        from: 4150,
+        gain: 0.15,
+        attack: 0.011,
+        hold: 0.0085,
+        decay: 0.0085,
+      },
+      {
+        type: "tone",
+        wave: "sine",
+        from: 4230,
+        gain: 0.5,
+        at: 0.0215,
+        attack: 0.0058,
+        hold: 0.008,
+        decay: 0.011,
+      },
+    ],
+  },
   /* LOADING: waiting. Designed: G, A, C, patient and even. Made to loop. */
   loading: {
     gain: 0.07,

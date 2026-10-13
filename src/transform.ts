@@ -1,7 +1,7 @@
 /**
  * A set derived from another. One transform reshapes every sound in a set,
- * so a new character (glass, mechanical) is a few numbers, not thirty
- * recipes written again; then name the sounds that need a recipe of their
+ * so a new character (glass, mechanical) is a few numbers, not every
+ * recipe written again; then name the sounds that need a recipe of their
  * own. The result is a plain set, in a file of its own, like any other.
  */
 import type { Layer, Recipe, SoundSet, ToneLayer, Wave } from "./recipe";

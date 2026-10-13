@@ -19,11 +19,13 @@ const GLASS: Transform = {
   partial: { ratio: 2.99, gain: 0.16 },
 };
 
-// The soft tick and knock already ring near the top of hearing: raised like
-// the rest, they would ring above it. They keep their pitch and take the rest.
+// The soft tick, knock and step already ring near the top of hearing: raised
+// like the rest, they would ring above it. They keep their pitch and take
+// the rest.
 const AT_PITCH: Transform = { ...GLASS, pitch: 1, noisePitch: 1 };
 
 export const glass = transformSounds(soft, GLASS, {
   tick: transformRecipe(soft.tick, AT_PITCH),
   knock: transformRecipe(soft.knock, AT_PITCH),
+  step: transformRecipe(soft.step, AT_PITCH),
 });

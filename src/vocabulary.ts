@@ -96,6 +96,11 @@ export const vocabulary = {
   slide: { family: "motion", about: "A panel slides into place." },
   swoosh: { family: "motion", about: "Something passes, or is sent away." },
 
+  step: {
+    family: "state",
+    about:
+      "One unit of something under way: progress moving on, a number counting, a cell crossed. Made to repeat.",
+  },
   loading: {
     family: "state",
     about: "Waiting: three patient notes. Made to loop.",
